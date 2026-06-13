@@ -84,24 +84,17 @@ for r, c in blocked:
 # VICTIM
 # =====================================================
 
-victim = (1,1)
+victims = [(1,1),(4,2),(2,9),(6,2)]
 
-cell_type[1][1] = VICTIM
-cell_type[4][2] = VICTIM
-cell_type[2][9] = VICTIM
-cell_type[6][2] = VICTIM
+for r, c in victims:
+    cell_type[r][c] = VICTIM
 
 # =====================================================
 # SHELTER
 # =====================================================
 
 shelter = (18,18)
-
 cell_type[18][18] = SHELTER
-cell_type[12][17] = SHELTER
-cell_type[18][5] = SHELTER
-cell_type[15][15] = SHELTER
-cell_type[14][13] = SHELTER
 
 # =====================================================
 # FLOOD ORIGINS
@@ -357,7 +350,7 @@ def display_grid(save_image=True):
 # =====================================================
 
 print("\nVICTIM:")
-print(victim)
+print(victims)
 
 print("\nSHELTER:")
 print(shelter)
@@ -366,7 +359,8 @@ print("\nFLOOD ORIGINS:")
 print(flood_origins)
 
 print("\nNEIGHBORS OF VICTIM:")
-print(get_neighbors(victim))
+for victim in victims:
+    print(f"{victim}: {get_neighbors(victim)}")
 
 print("\nCELL INFO (9,9):")
 print(get_cell_info(9,9))
