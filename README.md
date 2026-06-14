@@ -168,7 +168,25 @@ Flood-Evacuation-and-Rescue-Management-System/
 │   └── Hill-Climbing.ipynb         # Hill Climbing notebook
 │
 ├── notebook/
-│   └── flood-evacuation-&-rescue-analysis.ipynb   # ML training & analysis
+│   ├── flood-evacuation-&-rescue-analysis.ipynb   # ML training & analysis
+│   └── Diagrams/                                  # ML model visualizations
+│       ├── target_distributions.png
+│       ├── correlation_heatmap(dataset).png
+│       ├── water_level_distribution_by_zone.png
+│       ├── feature_importances_decision_tree.png
+│       ├── decision_tree_visualization.png
+│       ├── confusion_matrix_decision_tree.png
+│       ├── knn_accuracy_vs_k.png
+│       ├── knn_error_rate_vs_k.png
+│       ├── confusion_matrix_knn.png
+│       ├── naive_bayes_avg_predicted_probability.png
+│       ├── confusion_matrix_naive_bayes.png
+│       ├── ann_architecture.png
+│       ├── ann_training_progress.png
+│       ├── confusion_matrix_ann.png
+│       ├── model_comparison_accuracy.png
+│       ├── pca_scatter_plot.png
+│       └── flood_risk_level_distribution_by_zone.png
 │
 ├── images/
 │   ├── flood_environment.png       # Initial flood grid
