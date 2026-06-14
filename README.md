@@ -90,6 +90,44 @@ No installation required — run the simulation directly in your browser!
 
 > *Naive Bayes accuracy drops without directly derived features — this intentionally demonstrates the model's limitation with correlated features, which is a key insight of this project.
 
+### ML Model Visualizations
+
+**Dataset Overview**
+- Target Distributions  
+![Target Distributions](notebook/Diagrams/target_distributions.png)
+
+- Feature Correlations  
+![Correlation Heatmap](notebook/Diagrams/correlation_heatmap%28dataset%29.png)
+
+- Water Level Distribution by Zone  
+![Water Level Distribution](notebook/Diagrams/water_level_distribution_by_zone.png)
+
+**Decision Tree Model**
+| Feature Importances | Tree Visualization | Confusion Matrix |
+|---|---|---|
+| ![DT Features](notebook/Diagrams/feature_importances_decision_tree.png) | ![DT Tree](notebook/Diagrams/decision_tree_visualization.png) | ![DT Confusion](notebook/Diagrams/confusion_matrix_decision_tree.png) |
+
+**KNN Model**
+| K Value Optimization | Confusion Matrix |
+|---|---|
+| ![KNN Accuracy](notebook/Diagrams/knn_accuracy_vs_k.png) | ![KNN Confusion](notebook/Diagrams/confusion_matrix_knn.png) |
+
+**Naive Bayes Model**
+| Probability Distribution | Confusion Matrix |
+|---|---|
+| ![NB Probability](notebook/Diagrams/naive_bayes_avg_predicted_probability.png) | ![NB Confusion](notebook/Diagrams/confusion_matrix_naive_bayes.png) |
+
+**ANN (MLP) Model**
+| Network Architecture | Training Progress | Confusion Matrix |
+|---|---|---|
+| ![ANN Architecture](notebook/Diagrams/ann_architecture.png) | ![ANN Training](notebook/Diagrams/ann_training_progress.png) | ![ANN Confusion](notebook/Diagrams/confusion_matrix_ann.png) |
+
+**Model Performance Comparison**
+![Model Comparison](notebook/Diagrams/model_comparison_accuracy.png)
+
+**Dimensionality Reduction (PCA)**
+![PCA Scatter](notebook/Diagrams/pca_scatter_plot.png)
+
 ### Dataset
 - **60,000 rows × 33 columns** generated from flood simulation
 - Features include: water level, neighbor counts, distances, victim attributes
