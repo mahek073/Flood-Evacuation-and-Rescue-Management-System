@@ -220,14 +220,13 @@ def algo_hill_climb(start, goals, max_steps=2000):
     for _ in range(max_steps):
         if cur in goal_set:
             break
-
         nbs = get_neighbors_local(cur)
         if not nbs:
             break
 
-        current_score = _hm(cur, list(goal_set))
+        # Improving neighbor dhundo
         best = None
-        best_score = current_score
+        best_score = _hm(cur, list(goal_set))
         for nb in nbs:
             s = _hm(nb, list(goal_set))
             if s < best_score:
@@ -235,13 +234,13 @@ def algo_hill_climb(start, goals, max_steps=2000):
                 best = nb
 
         if best is None:
+            # Unvisited mein se best lo
             unvisited = [nb for nb in nbs if nb not in visited]
             if unvisited:
                 best = min(unvisited, key=lambda nb: _hm(nb, list(goal_set)))
             else:
-                best = min(nbs, key=lambda nb: _hm(nb, list(goal_set)))
-                if best in path[-3:]:
-                    break
+                # Sab visited — genuinely stuck
+                break
 
         visited.add(best)
         cur = best
