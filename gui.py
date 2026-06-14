@@ -211,19 +211,42 @@ def algo_risk_astar(start, goals):
                 heapq.heappush(open_list,(tg+_hm(nb,list(goal_set)),nb))
     return None, None
 
-def algo_hill_climb(start, goals, max_steps=400):
-    goal_set=set(goals); cur=start; path=[cur]; vis={cur}
+def algo_hill_climb(start, goals, max_steps=2000):
+    goal_set = set(goals)
+    cur = start
+    path = [cur]
+    visited = {cur}
+
     for _ in range(max_steps):
-        if cur in goal_set: break
-        nbs=get_neighbors_local(cur)
-        if not nbs: break
-        best=None; best_score=_hm(cur,list(goal_set))
+        if cur in goal_set:
+            break
+
+        nbs = get_neighbors_local(cur)
+        if not nbs:
+            break
+
+        current_score = _hm(cur, list(goal_set))
+        best = None
+        best_score = current_score
         for nb in nbs:
-            if nb in vis: continue
-            s=_hm(nb,list(goal_set))
-            if s<best_score: best_score=s; best=nb
-        if best is None: break
-        cur=best; vis.add(cur); path.append(cur)
+            s = _hm(nb, list(goal_set))
+            if s < best_score:
+                best_score = s
+                best = nb
+
+        if best is None:
+            unvisited = [nb for nb in nbs if nb not in visited]
+            if unvisited:
+                best = min(unvisited, key=lambda nb: _hm(nb, list(goal_set)))
+            else:
+                best = min(nbs, key=lambda nb: _hm(nb, list(goal_set)))
+                if best in path[-3:]:
+                    break
+
+        visited.add(best)
+        cur = best
+        path.append(cur)
+
     return path, (cur if cur in goal_set else None)
 
 ALGORITHMS = {
@@ -752,8 +775,8 @@ class FloodGUI:
             if self._stop_flag: self._finish_run("Stopped"); return
             self._update_stats(victims=len(rem), rescued_ct=len(self.rescued))
             path,found=algo_fn(cur_pos,rem)
-            if path is None:
-                self._log("No path to any victim!","error")
+            if path is None or found is None:
+                self._log(f"⚠ Rescue unsuccessful — agent stuck, could not reach victim.","warn")
                 self._finish_run("Stuck"); return
             self._log(f"Routing to {found}: {len(path)-1} step(s)","info")
             for i,cell in enumerate(path):
@@ -765,6 +788,9 @@ class FloodGUI:
                 self.root.after(0,self._draw_grid)
                 self._update_stats(steps=self.total_steps,cost=f"{self.total_cost:.1f}")
                 time.sleep(delay())
+            if found is None or found not in rem:
+                self._log("⚠ Rescue unsuccessful — victim unreachable.", "warn")
+                self._finish_run("Stuck"); return
             self.rescued.add(found); rem.remove(found)
             if cell_type[found[0]][found[1]]==VICTIM: cell_type[found[0]][found[1]]=ROAD
             cur_pos=found
